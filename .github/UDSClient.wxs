@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="*" Name="UDSClient" Language="1033" Version="1.0.0.0" Manufacturer="UDS" UpgradeCode="77f76869-ba64-4853-8758-6b262cdfc0e4">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of UDSClient is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+    <WixVariable Id="UDSCLIENTDIR" Value="." />
+    <Feature Id="ProductFeature" Title="UDSClient" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+    <Property Id="REINSTALLMODE" Value="amus" />
+  </Product>
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="UDSClient" />
+      </Directory>
+    </Directory>
+  </Fragment>
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="VDIClientComponent" Guid="{77f76869-ba64-4853-8758-6b262cdfc0e3}">
+        <File Id="VDIClientEXE" Source="!(wix.UDSCLIENTDIR)\dist\UDSClient.exe" KeyPath="yes" />
+        <RegistryValue Root="HKCR" Key="uds\shell\open\command" Type="string" Value='"[INSTALLFOLDER]\UDSClient\UDSClient.exe" %1' />
+        <RegistryValue Root="HKCR" Key="uds" Type="string" Value='URL:Uds Protocol' />
+        <RegistryKey Root="HKCR" Key="uds">
+          <RegistryValue Type="string" Name="URL Protocol" Value="" />
+        </RegistryKey>
+        <RegistryValue Root="HKCR" Key="udss\shell\open\command" Type="string" Value='"[INSTALLFOLDER]\UDSClient\UDSClient.exe" %1' />
+        <RegistryValue Root="HKCR" Key="udss" Type="string" Value='URL:Uds Protocol SSL' />
+        <RegistryKey Root="HKCR" Key="udss">
+          <RegistryValue Type="string" Name="URL Protocol" Value="" />
+        </RegistryKey>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>

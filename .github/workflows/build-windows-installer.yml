@@ -1,9 +1,9 @@
 name: Build UDSClient exe installer
 on:
   push:
-    branches: [ master, v4.0 ]
+    branches: [ master, v4.0, test ]
   pull_request:
-    branches: [ master, v4.0 ]
+    branches: [ master, v4.0, test ]
 
 jobs:
   build:
